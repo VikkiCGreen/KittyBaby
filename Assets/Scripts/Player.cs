@@ -11,7 +11,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float movementSpeed;
 
+    private bool sprint;
+
     private bool facingRight;
+
+    private Animator myAnimator;
     
 
 	// Use this for initialization
@@ -19,10 +23,15 @@ public class Player : MonoBehaviour
     {
         facingRight = true;
         myRigidbody = GetComponent<Rigidbody2D>();
+        myAnimator = GetComponent<Animator>();
 	}
-	
-	// Update is called once per frame
-	void FixedUpdate()
+
+    void Update()
+    {
+        HandleInput();
+    }
+
+    void FixedUpdate()
     {
         //looks at input axis. set up in input settings in unity
         float horizontal = Input.GetAxis("Horizontal");
@@ -31,14 +40,37 @@ public class Player : MonoBehaviour
         HandleMovement(horizontal);
 
         Flip(horizontal);
+
+        ResetValues();
 	}
 
     //player movement
     private void HandleMovement(float horizontal)
     {
 
-        myRigidbody.velocity = new Vector2(horizontal * movementSpeed, myRigidbody.velocity.y);
+        if (!this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("sprint"))
+        {
+            movementSpeed = 10;
+            myRigidbody.velocity = new Vector2(horizontal * movementSpeed, myRigidbody.velocity.y);
+        }
 
+        //sprint
+        if (sprint)
+        {
+            myAnimator.SetTrigger("sprint");
+        }
+        myAnimator.SetFloat("speed", Mathf.Abs(horizontal));
+
+
+
+    }
+    private void HandleInput()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            sprint = true;
+        }
+        
     }
     
     private void Flip(float horizontal)
@@ -51,5 +83,10 @@ public class Player : MonoBehaviour
             theScale.x *= -1;
             transform.localScale = theScale;
         }
+    }
+
+    private void ResetValues()
+    {
+        sprint = false;
     }
 }
