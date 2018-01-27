@@ -70,6 +70,12 @@ public class Player : MonoBehaviour
             sprint = true;
             movementSpeed = 20;
         }
+
+		if (Input.GetKeyUp(KeyCode.LeftShift)) 
+		{
+			sprint = false;
+			movementSpeed = 10;
+		}
         
     }
     
