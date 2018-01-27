@@ -50,7 +50,6 @@ public class Player : MonoBehaviour
 
         if (!this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("sprint"))
         {
-            movementSpeed = 10;
             myRigidbody.velocity = new Vector2(horizontal * movementSpeed, myRigidbody.velocity.y);
         }
 
@@ -69,6 +68,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             sprint = true;
+            movementSpeed = 20;
         }
         
     }
