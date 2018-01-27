@@ -5,7 +5,7 @@
 		// Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
 		"ms-vscode.csharp",
 		"jchannon.csharpextensions",
-		"YclepticStudios.unity-snippets",
+		"yclepticstudios.unity-snippets",
 		"eamodio.gitlens"
 	]
 }
